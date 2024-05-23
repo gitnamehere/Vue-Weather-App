@@ -62,11 +62,7 @@ const { weather } = storeToRefs(weatherStore);
             align-items: center;
             overflow-x: scroll;
 
-            width: 848px;
-
-            @media (max-width: 768px) {
-                width: 100%;
-            }
+            width: 100%;
         }
 
         &__list-item {

@@ -94,7 +94,7 @@ const { weather, geocoding, weatherConditions } = storeToRefs(weatherStore);
             align-items: center;
 
             padding: 1rem 0;
-            padding-left: 6rem;
+            padding-left: 80px;
 
             @media (max-width: 767px) {
                 flex-direction: row;

@@ -62,8 +62,12 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 
 <style scoped lang="scss">
     .weather {
-        height: 100vh;
-        width: auto;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        padding: 96px 0;
 
         color: #f8f8f8;
         text-shadow:  0px 2px 8px #0004;
@@ -72,11 +76,12 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 
         &__top-bar {
             display: flex;
+            position: fixed;
+            inset: 0;
             flex-direction: row;
             align-items: center;
 
             margin-bottom: 2rem;
-            width: 100vw;
             height: 72px;
             padding: 8px 64px;
 
@@ -85,7 +90,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             animation: fadein 0.5s;
 
             &--day {
-                background: linear-gradient(#89c6ff, transparent);
+                background: linear-gradient(#89c6ff, #2885dd, transparent);
             }
 
             h1 {
@@ -109,6 +114,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             flex-direction: column;
             align-items: center;
             justify-content: start;
+            width: 100%;
 
             @media (max-width: 767px) {
                 padding: 0 2rem;

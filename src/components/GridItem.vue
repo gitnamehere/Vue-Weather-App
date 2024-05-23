@@ -41,11 +41,11 @@ defineProps<{
             width: 100%;
                     
             @media (min-width: 768px) {
-                width: 40rem;
+                width: 640px;
             }
 
             @media (min-width: 1024px) {
-                width: auto;
+                width: 900px;
             }
         }
 
