@@ -2,15 +2,16 @@
 defineProps<{
     header: string
     fullWidth?: boolean
+    hollow?: boolean
 }>();
 </script>
 
 <template>
     <div
         class="grid-card"
-        :class="{ 'grid-card--full-width': fullWidth }"
+        :class="{ 'grid-card--full-width': fullWidth, 'grid-card--hollow': hollow }"
     >
-        <div class="card__title">
+        <div class="grid-card__title">
             <h3>{{ header }}</h3>
         </div>
         <slot />
@@ -24,17 +25,16 @@ defineProps<{
         box-sizing: border-box;
 
         border-radius: 16px;
-        min-width: 208px;
-        min-height: 208px;
-        padding: 1rem;
+        min-width: 160px;
+        min-height: 160px;
+        padding: 16px;
+        background-color: #6683;
 
-        background-color: #4464;
+        &--hollow {
+            border: 2px solid #FFF2;
+            padding: 12px;
 
-        &__title {
-            display: block;
-            width: 100%;
-
-            font-size: 16px;
+            background-color: unset;
         }
 
         &--full-width {
@@ -45,8 +45,15 @@ defineProps<{
             }
 
             @media (min-width: 1024px) {
-                width: 900px;
+                width: 960px;
             }
+        }
+
+        &__title {
+            display: block;
+            width: 100%;
+
+            font-size: 16px;
         }
 
         ::-webkit-scrollbar {
@@ -54,7 +61,7 @@ defineProps<{
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #AAA2;
+            background: #FFF2;
             border-radius: 8px;
         }
     }

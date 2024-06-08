@@ -69,6 +69,7 @@ export const useWeatherStore = defineStore('weather', () => {
       `?latitude=${latitude}` +
       `&longitude=${longitude}` +
       `&current_weather=true` +
+      `&hourly=temperature_2m,weather_code,is_day` + 
       `&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset` +
       `&temperature_unit=${temperatureUnit.value}` +
       `&windspeed_unit=mph` + 

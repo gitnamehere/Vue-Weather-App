@@ -4,9 +4,9 @@ import { useWeatherStore } from '@/stores/weather';
 import { TemperatureUnits } from '@/utils/constants';
 
 import Searchbar from '@/components/LocationSearchbar.vue';
-import CurrentWeather from '@/components/CurrentWeather.vue'
+import CurrentWeather from '@/components/CurrentWeather.vue';
 import DailyWeather from '@/components/DailyWeather.vue';
-
+import HourlyWeather from '@/components/HourlyWeather.vue';
 const weatherStore = useWeatherStore();
 
 const { weather, temperatureUnit } = storeToRefs(weatherStore);
@@ -15,13 +15,13 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 <!--TODO: refactor code into seperate components-->
 
 <template>
-    <div 
-        class="weather" 
+    <div
+        class="weather"
         :class="weather?.current_weather.is_day ? 'weather--day' : 'weather--night'"
     >
         <div
             class="weather__top-bar"
-            :class="{'weather__top-bar--day': weather?.current_weather.is_day}"
+            :class="{ 'weather__top-bar--day': weather?.current_weather.is_day }"
         >
             <a href="/">
                 <h1>A Vue Weather App</h1>
@@ -40,6 +40,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             class="weather__container"
         >
             <CurrentWeather />
+            <HourlyWeather />
             <DailyWeather />
         </div>
 
@@ -48,13 +49,16 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             class="weather__container"
         >
             <h1>404 Not Found</h1>
-            <p>This means you either reloaded the page, the location you searched could not be found, or an error occured.</p>
+            <p>
+                This means you either reloaded the page, the location you searched could not be found, or an
+                error occured.
+            </p>
         </div>
         <footer class="footer">
             <p>This is the weather page. (under development)</p>
             <a
                 href="https://open-meteo.com/"
-                style="color: #f8f8f8;"
+                style="color: #f8f8f8"
             ><u>Weather data by Open-Meteo.com</u></a>
         </footer>
     </div>
@@ -63,16 +67,17 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 <style scoped lang="scss">
     .weather {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         height: 100%;
-        width: 100%;
+        width: calc(100vw - (100vw - 100%)); // subtract viewport by scrollbar width
 
-        padding: 96px 0;
+        padding: 96px 0 16px;
 
         color: #f8f8f8;
-        text-shadow:  0px 2px 8px #0004;
+        text-shadow: 0px 2px 8px #0004;
 
         animation: fadein 0.5s;
+        transition: background-color 0.25s ease;
 
         &__top-bar {
             display: flex;
@@ -87,7 +92,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 
             background: linear-gradient(#1d104b, transparent);
 
-            animation: fadein 0.5s;
+            animation: all 0.5s ease;
 
             &--day {
                 background: linear-gradient(#89c6ff, #2885dd, transparent);
@@ -131,24 +136,14 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
     }
 
     .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        width: 100vw;
-        margin-bottom: 2rem;
-
+        padding-top: 16px;
         text-align: center;
     }
 
     @media (max-width: 767px) {
         .weather__top-bar {
             padding: 1rem;
-            
+
             h1 {
                 display: none;
             }
@@ -162,12 +157,16 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
     @media (min-width: 769px) {
         .weather__search-bar {
             flex-grow: 1;
-            margin-left: 16px
+            margin-left: 16px;
         }
     }
 
     @keyframes fadein {
-        from { opacity: 0; }
-        to   { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 </style>

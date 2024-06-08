@@ -18,7 +18,7 @@ const getLocations = () => {
     timer = setTimeout(() => {
         weatherStore.getLocations(location.value);
         locationsSearched.value = true;
-    }, 750);
+    }, 500);
 }
 
 const getWeather = () => {
@@ -68,13 +68,13 @@ const getWeatherByCoords = (location: any) => {
             class="location-searchbar__list"
         >
             <div 
-                v-for="location in locations"  
-                :key="location" 
+                v-for="locationName in locations"  
+                :key="locationName" 
                 class="location-searchbar__list-item"
-                @click="getWeatherByCoords(location)"
+                @click="getWeatherByCoords(locationName)"
             >
                 <p>
-                    {{ location.name }}, {{ location.admin1 }}
+                    {{ locationName.name }}, {{ locationName.admin1 }}
                 </p>
             </div>
         </div>
