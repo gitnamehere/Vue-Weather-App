@@ -17,11 +17,11 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
 <template>
     <div
         class="weather"
-        :class="weather?.current_weather.is_day ? 'weather--day' : 'weather--night'"
+        :class="weather?.current_weather?.is_day ? 'weather--day' : 'weather--night'"
     >
         <div
             class="weather__top-bar"
-            :class="{ 'weather__top-bar--day': weather?.current_weather.is_day }"
+            :class="{ 'weather__top-bar--day': weather?.current_weather?.is_day }"
         >
             <a href="/Vue-Weather-App">
                 <h1>A Vue Weather App</h1>
@@ -36,7 +36,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
         </div>
 
         <div
-            v-if="weather"
+            v-if="weather.current_weather"
             class="weather__container"
         >
             <CurrentWeather />
@@ -48,13 +48,13 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             v-else
             class="weather__container"
         >
-            <h1>404 Not Found</h1>
+            <h1>Not Found</h1>
             <p>
                 This means you either reloaded the page, the location you searched could not be found, or an
                 error occured.
             </p>
         </div>
-        <footer class="footer">
+        <footer class="weather__footer">
             <p>This is the weather page. (under development)</p>
             <a
                 href="https://open-meteo.com/"
@@ -68,8 +68,10 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
     .weather {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         height: 100%;
         width: calc(100vw - (100vw - 100%)); // subtract viewport by scrollbar width
+        min-height: 100vh;
 
         padding: 96px 0 16px;
 
@@ -133,11 +135,11 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
         &--night {
             background-color: #111128;
         }
-    }
 
-    .footer {
-        padding-top: 16px;
-        text-align: center;
+        &__footer {
+            padding-top: 16px;
+            text-align: center;
+        }
     }
 
     @media (max-width: 767px) {
