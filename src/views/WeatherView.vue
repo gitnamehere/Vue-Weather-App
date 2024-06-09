@@ -36,7 +36,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
         </div>
 
         <div
-            v-if="weather.current_weather"
+            v-if="weather?.current_weather"
             class="weather__container"
         >
             <CurrentWeather />
