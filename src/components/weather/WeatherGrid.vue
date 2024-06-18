@@ -26,6 +26,7 @@ const { weather } = storeToRefs(weatherStore);
             class="weather-grid__grid-item"
             header=""
             :square="true"
+            :hollow="true"
         />
         <HumidityCard
             class="weather-grid__grid-item"
@@ -35,6 +36,7 @@ const { weather } = storeToRefs(weatherStore);
             class="weather-grid__grid-item"
             header=""
             :square="true"
+            :hollow="true"
         />
     </GridContainer>
 </template>

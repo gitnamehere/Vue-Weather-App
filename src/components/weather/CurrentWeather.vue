@@ -12,7 +12,7 @@ const { weather, geocoding, weatherConditions } = storeToRefs(weatherStore);
         class="current-weather"
     >
         <div class="current-weather__location">
-            <h1>{{ geocoding.name }} {{ geocoding.admin1 }}</h1>
+            <h1>{{ geocoding.name }}{{ geocoding.admin1 ? `, ${geocoding.admin1}` : "" }}</h1>
             <h2>{{ geocoding.country }}</h2>
         </div>
         <div
