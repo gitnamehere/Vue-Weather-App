@@ -22,7 +22,7 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             class="weather__top-bar"
             :class="{ 'weather__top-bar--day': weather?.current?.is_day }"
         >
-            <a href="/Vue-Weather-App">
+            <a href="/vue-weather-app">
                 <h1>A Vue Weather App</h1>
             </a>
             <Searchbar class="weather__search-bar" />
