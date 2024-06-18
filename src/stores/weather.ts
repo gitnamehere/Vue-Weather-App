@@ -13,8 +13,8 @@ export const useWeatherStore = defineStore('weather', () => {
   const longitude = ref();
   const latitude = ref();
   const temperatureUnit = ref<TemperatureUnits>(TemperatureUnits.FAHRENHEIT);
-  const geocoding = ref(); // This will be a JSON object based on the API's geocoding response, or error
-  const weather = ref(); // This will be a JSON object based on the API's current_weather response, or error
+  const geocoding = ref();
+  const weather = ref();
   const weatherConditions = ref<WeatherConditions>(); // This will be a JSON object for the current weather conditions, using parseWeatherCode()
   const locations = ref();
 
@@ -68,21 +68,22 @@ export const useWeatherStore = defineStore('weather', () => {
     const requestUrl = `${API_URL}forecast` + 
       `?latitude=${latitude}` +
       `&longitude=${longitude}` +
-      `&current_weather=true` +
+      `&current=temperature_2m,apparent_temperature,relative_humidity_2m,is_day,weather_code,wind_speed_10m,wind_direction_10m` +
       `&hourly=temperature_2m,weather_code,is_day` + 
       `&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset` +
       `&temperature_unit=${temperatureUnit.value}` +
-      `&windspeed_unit=mph` + 
+      `&wind_speed_unit=mph` + 
       `&precipitation_unit=inch` +
       `&timezone=auto` +
-      `&forecast_days=14`;
+      `&forecast_days=14` + 
+      `&forecast_hours=24`;
 
     axios
       .get(requestUrl)
       .then((res) => {
         console.log(requestUrl);
         weather.value = res.data;
-        weatherConditions.value = parseWeatherCode({ code: res.data.current_weather.weathercode, isDay: res.data.current_weather.is_day });
+        weatherConditions.value = parseWeatherCode({ code: res.data.current.weather_code, isDay: res.data.current.is_day });
       })
       .catch((err) => {
         console.log(err);

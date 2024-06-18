@@ -4,24 +4,23 @@ import { useWeatherStore } from '@/stores/weather';
 import { TemperatureUnits } from '@/utils/constants';
 
 import Searchbar from '@/components/LocationSearchbar.vue';
-import CurrentWeather from '@/components/CurrentWeather.vue';
-import DailyWeather from '@/components/DailyWeather.vue';
-import HourlyWeather from '@/components/HourlyWeather.vue';
+import CurrentWeather from '@/components/weather/CurrentWeather.vue';
+import DailyWeather from '@/components/weather/DailyWeather.vue';
+import HourlyWeather from '@/components/weather/HourlyWeather.vue';
+import WeatherGrid from '@/components/weather/WeatherGrid.vue';
 const weatherStore = useWeatherStore();
 
 const { weather, temperatureUnit } = storeToRefs(weatherStore);
 </script>
 
-<!--TODO: refactor code into seperate components-->
-
 <template>
     <div
         class="weather"
-        :class="weather?.current_weather?.is_day ? 'weather--day' : 'weather--night'"
+        :class="weather?.current?.is_day ? 'weather--day' : 'weather--night'"
     >
         <div
             class="weather__top-bar"
-            :class="{ 'weather__top-bar--day': weather?.current_weather?.is_day }"
+            :class="{ 'weather__top-bar--day': weather?.current?.is_day }"
         >
             <a href="/Vue-Weather-App">
                 <h1>A Vue Weather App</h1>
@@ -36,11 +35,12 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
         </div>
 
         <div
-            v-if="weather?.current_weather"
+            v-if="weather?.current"
             class="weather__container"
         >
             <CurrentWeather />
             <HourlyWeather />
+            <WeatherGrid />
             <DailyWeather />
         </div>
 

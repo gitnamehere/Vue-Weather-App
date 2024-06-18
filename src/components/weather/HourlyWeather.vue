@@ -1,49 +1,63 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useWeatherStore } from '@/stores/weather';
 import { parseWeatherCode } from '@/utils/weatherCodes';
 
-import GridItem from '@/components/grid/GridItem.vue';
-
-const daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+import CardItem from '@/components/CardItem.vue';
 
 const weatherStore = useWeatherStore();
 const { weather } = storeToRefs(weatherStore);
+
+// format hourly into an array of objects
+const hourlyWeather = computed(() => {
+    let { hourly } = weather.value;
+    let organizedHourly = [];
+
+    for (let i = 0; i < 24; i++) {
+        organizedHourly.push({
+            icon: parseWeatherCode({code: hourly.weather_code[i], isDay: hourly.is_day[i]}).icon,
+            temperature: Math.round(hourly.temperature_2m[i]),
+            time: new Date(hourly.time[i]).toLocaleTimeString([], { hour: "numeric" })
+        })
+    }
+
+    return organizedHourly;
+})
 </script>
 
 <template>
-    <GridItem
-        v-if="weather.daily"
-        header="14 Day Forecast"
+    <CardItem
+        v-if="weather.hourly"
+        header="Hourly Forecast"
         :full-width="true"
-        :hollow="true"
-        class="daily-weather__container"
+        class="hourly-weather__container"
     >
-        <div class="daily-weather__list">
+        <div class="hourly-weather__list">
             <div
-                v-for="day in 14"
-                :key="day"
-                class="daily-weather__list-item"
+                v-for="(hour, i) in hourlyWeather"
+                :key="i"
+                class="hourly-weather__list-item"
             >
-                <p class="daily-weather__text">
-                    {{ day == 1 ? "Today" : daysOfTheWeek[new Date(weather.daily.time[day-1]).getUTCDay()] }}
+                <p class="hourly-weather__text">
+                    {{ i == 0 ? "Now" : `${hour.time}` }}
                 </p>
                 <i
-                    class="daily-weather__icon wi"
-                    :class="parseWeatherCode({ code: weather.daily.weathercode[day-1] }).icon"
+                    class="hourly-weather__icon wi"
+                    :class="hour.icon"
                 />
                 <div>
-                    <p class="daily-weather__text">
-                        {{ `${Math.round(weather.daily.temperature_2m_min[day-1])}° - ${Math.round(weather.daily.temperature_2m_max[day-1])}°` }}
+                    <p class="hourly-weather__text">
+                        {{ `${hour.temperature}°` }}
                     </p>
                 </div>
             </div>
         </div>
-    </GridItem>
+    </CardItem>
 </template>
 
 <style scoped lang="scss">
-    .daily-weather {
+    .hourly-weather {
         &__container {
             flex-direction: column;
             margin-bottom: 16px;
@@ -73,7 +87,7 @@ const { weather } = storeToRefs(weatherStore);
             min-width: 80px;
             height: 112px;
 
-            background-color: #AAA2;
+            border: 2px solid #FFF2;
             border-radius: 8px;
 
             &:first-of-type {

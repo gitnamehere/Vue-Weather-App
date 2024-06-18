@@ -20,32 +20,32 @@ import Searchbar from '@/components/LocationSearchbar.vue';
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
-        margin: auto;
-        width: 100vw;
-        height: 100vh;
+        position: absolute;
+        inset: 0;
 
         &__title {
-            margin-top: -5rem;
-
+            margin-bottom: 16px;
             font-weight: 500;
-            font-size: 2.6rem;
-            text-align: center;
-        }
-
-        &__api-link {
-            margin-top: 1rem;
-            font-size: 0.8rem;
+            font-size: 36px;
             text-align: center;
         }
 
         &__search-bar {
-            margin-top: 1rem;
-            width: 50%;
+            margin-bottom: 16px;
 
-            @media (max-width: 767px) {
-                width: 95%
+            @media (min-width: 768px) {
+                width: 480px;
             }
+
+            @media (min-width: 1024px) {
+                width: 768px;
+            }
+        }
+
+        &__api-link {
+            height: 36px;
+            font-size: 0.8rem;
+            text-align: center;
         }
     }
 </style>

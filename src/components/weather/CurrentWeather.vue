@@ -8,7 +8,7 @@ const { weather, geocoding, weatherConditions } = storeToRefs(weatherStore);
 
 <template>
     <div
-        v-if="weather?.current_weather"
+        v-if="weather?.current"
         class="current-weather"
     >
         <div class="current-weather__location">
@@ -29,7 +29,7 @@ const { weather, geocoding, weatherConditions } = storeToRefs(weatherStore);
             </div>
             <div class="current-weather__temperature">
                 <h2 class="current-weather__temperature-text">
-                    {{ weather.current_weather.temperature }}
+                    {{ weather.current.temperature_2m }}
                 </h2>
                 <p class="current-weather__temperature-unit">
                     {{ weather.daily_units.temperature_2m_min }}
@@ -46,7 +46,7 @@ const { weather, geocoding, weatherConditions } = storeToRefs(weatherStore);
                     L: {{ `${weather.daily.temperature_2m_min[0]}${weather.daily_units.temperature_2m_min}` }}
                 </p>
                 <p class="current-weather__data-text">
-                    <font-awesome-icon :icon="['fas', 'wind']" />: {{ weather.current_weather.windspeed }}mph {{ weather.current_weather.winddirection }}°
+                    Feels Like: {{ `${weather.current.apparent_temperature}${weather.daily_units.temperature_2m_min}` }}
                 </p>
             </div>
         </div>

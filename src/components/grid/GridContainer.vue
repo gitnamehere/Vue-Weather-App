@@ -3,23 +3,28 @@
 </script>
 
 <template>
-    <div class="grid-container grid-container--full-width">
+    <div class="grid-container">
         <slot />
     </div>
 </template>
 
 <style scoped lang="scss">
 .grid-container {
-    background-color: red;
     display: grid;
-    grid-template-columns: 4;
+    width: 100%;
 
-    &--full-width {
-        width: 880px;
+    column-gap: 16px;
+    row-gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-        @media (max-width: 768px) {
-            width: 100%;
-        }
+    @media (min-width: 768px) {
+        width: 716px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1024px) {
+        width: 960px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 </style>

@@ -9,17 +9,6 @@ a {
   color: white;
 }
 
-@media (min-width: 768px) {
-  body {
-    display: flex;
-  }
-
-  .searchbar {
-    margin: 0 auto;
-    width: 100%;
-  }
-}
-
 *,
 *::before,
 *::after {

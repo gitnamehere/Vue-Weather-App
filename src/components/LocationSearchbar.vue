@@ -7,7 +7,7 @@ const weatherStore = useWeatherStore();
 
 const location = ref('');
 const locationsSearched = ref(false);
-const { locations } = storeToRefs(weatherStore);
+const { weather, locations } = storeToRefs(weatherStore);
 
 let timer: number;
 
@@ -22,6 +22,8 @@ const getLocations = () => {
 }
 
 const getWeather = () => {
+    if (!location.value) return;
+
     clearTimeout(timer);
     locationsSearched.value = false;
     weatherStore.setLocation(location.value);
@@ -54,11 +56,11 @@ const getWeatherByCoords = (location: any) => {
             >
             <button
                 class="location-searchbar__button"
+                :class="[weather?.current?.is_day ? 'location-searchbar__button--day' : 'location-searchbar__button--night' ]"
                 @click="getWeather"
             >
                 <font-awesome-icon 
                     :icon="['fas', 'magnifying-glass']" 
-                    style="color: #282;" 
                     size="xl"
                 />
             </button>
@@ -114,6 +116,14 @@ const getWeatherByCoords = (location: any) => {
             height: 100%;
 
             background-color: transparent;
+
+            &--day {
+                color: #2885dd;
+            }
+
+            &--night {
+                color: #1d104b;
+            }
         }
 
         &__list {
