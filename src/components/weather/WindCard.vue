@@ -17,10 +17,10 @@ defineProps<Props>();
         :square="true"
     >
         <div class="wind-card__body">
-            <h1 class="wind-card__indicator">
+            <h2 class="wind-card__indicator">
                 {{ speed }}mph
                 {{ direction }}°
-            </h1>
+            </h2>
         </div>
     </CardItem>
 </template>

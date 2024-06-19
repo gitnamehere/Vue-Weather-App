@@ -13,9 +13,9 @@ defineProps<{
         :square="true"
     >
         <div class="humidity-card__body">
-            <h1 class="humidity-card__indicator">
+            <h2 class="humidity-card__indicator">
                 {{ humidity }}%
-            </h1>
+            </h2>
         </div>
     </CardItem>
 </template>
