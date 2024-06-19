@@ -11,6 +11,8 @@ import WeatherGrid from '@/components/weather/WeatherGrid.vue';
 const weatherStore = useWeatherStore();
 
 const { weather, temperatureUnit } = storeToRefs(weatherStore);
+
+window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
 </script>
 
 <template>
@@ -59,7 +61,9 @@ const { weather, temperatureUnit } = storeToRefs(weatherStore);
             <a
                 href="https://open-meteo.com/"
                 style="color: #f8f8f8"
-            ><u>Weather data by Open-Meteo.com</u></a>
+            >
+                <u>Weather data by Open-Meteo.com</u>
+            </a>
         </footer>
     </div>
 </template>
