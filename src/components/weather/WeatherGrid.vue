@@ -49,7 +49,7 @@ const { weather } = storeToRefs(weatherStore);
         &__grid-item {
             grid-row: 1;
 
-            @media (max-width: 767px) {
+            @media (max-width: 576px) {
                 &:nth-child(even) {
                     // grid-row: 2;
 

@@ -17,9 +17,12 @@
     row-gap: 16px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
+    @media (min-width: 576px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     @media (min-width: 768px) {
         width: 716px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     @media (min-width: 1024px) {
