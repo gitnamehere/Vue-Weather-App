@@ -8,8 +8,8 @@ import CurrentWeather from '@/components/weather/CurrentWeather.vue';
 import DailyWeather from '@/components/weather/DailyWeather.vue';
 import HourlyWeather from '@/components/weather/HourlyWeather.vue';
 import WeatherGrid from '@/components/weather/WeatherGrid.vue';
-const weatherStore = useWeatherStore();
 
+const weatherStore = useWeatherStore();
 const { weather, temperatureUnit } = storeToRefs(weatherStore);
 
 window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
