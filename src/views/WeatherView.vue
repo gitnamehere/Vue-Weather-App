@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router';
+
 import { useWeatherStore } from '@/stores/weather';
 import { TemperatureUnits } from '@/utils/constants';
 
@@ -10,9 +13,25 @@ import HourlyWeather from '@/components/weather/HourlyWeather.vue';
 import WeatherGrid from '@/components/weather/WeatherGrid.vue';
 
 const weatherStore = useWeatherStore();
-const { weather, temperatureUnit } = storeToRefs(weatherStore);
+const { error, temperatureUnit, weather } = storeToRefs(weatherStore);
 
-window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
+const route = useRoute();
+
+function getRouteFromParams() {
+    // route.params.location has a type of <string | string[]>, so convert the string (most likely not a string array here)
+    // into a string so that ts doesn't yell at me
+    const location = route.params.location.toString();
+
+    if (!location) return;
+
+    weatherStore.getWeatherByName(location);
+}
+
+onMounted(() => {
+    window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading somewhere in the middle of the page on mobile devices
+
+    getRouteFromParams();
+})
 </script>
 
 <template>
@@ -35,7 +54,6 @@ window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading 
                 {{ temperatureUnit === TemperatureUnits.FAHRENHEIT ? 'F' : 'C' }}
             </button>
         </div>
-
         <div
             v-if="weather?.current"
             class="weather__container"
@@ -45,23 +63,26 @@ window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading 
             <WeatherGrid />
             <DailyWeather />
         </div>
-
         <div
             v-else
             class="weather__container"
         >
-            <h1>Not Found</h1>
-            <p>
-                This means you either reloaded the page, the location you searched could not be found, or an
-                error occured.
-            </p>
+            <template v-if="error">
+                <h1>Cannot fetch weather data</h1>
+                <p>
+                    The location you searched for doesn't exist, or an error occured
+                </p>
+            </template>
+            <h1 v-else-if="route.params.location">
+                Loading...
+            </h1>
+            <h1 v-else>
+                Enter in a location to get weather data
+            </h1>
         </div>
         <footer class="weather__footer">
             <p>This is the weather page. (under development)</p>
-            <a
-                href="https://open-meteo.com/"
-                style="color: #f8f8f8"
-            >
+            <a href="https://open-meteo.com/">
                 <u>Weather data by Open-Meteo.com</u>
             </a>
         </footer>
@@ -128,7 +149,7 @@ window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading 
             width: 100%;
 
             @media (max-width: 767px) {
-                padding: 0 2rem;
+                padding: 0 16px;
             }
         }
 
@@ -148,7 +169,7 @@ window.scrollTo(0, 0); // scroll to top when page is loaded, fixes page loading 
 
     @media (max-width: 767px) {
         .weather__top-bar {
-            padding: 1rem;
+            padding: 16px;
 
             h1 {
                 display: none;

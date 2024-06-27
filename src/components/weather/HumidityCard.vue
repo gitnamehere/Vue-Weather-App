@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CardItem from '@/components/CardItem.vue';
-import RaindropGauge from '@/components/RaindropGauge.vue';
+import HumidityGauge from '@/components/HumidityGauge.vue';
 
 defineProps<{
     humidity: number;
@@ -14,7 +14,7 @@ defineProps<{
         :square="true"
     >
         <div class="humidity-card__body">
-            <RaindropGauge
+            <HumidityGauge
                 class="humidity-card__raindrop"
                 :progress="`${humidity}%`"
             />
@@ -36,9 +36,10 @@ defineProps<{
         }
 
         &__raindrop {
-            height: 50%;
+            margin: 8px;
+            height: 42%;
+            max-height: 64px;
             width: 50%;
-            margin: 8px auto;
         }
     }
 </style>

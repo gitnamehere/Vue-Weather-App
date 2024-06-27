@@ -11,7 +11,7 @@ defineProps<{progress: string}>();
 <style lang="scss">
     .raindrop {
         display: flex;
-        background-color: #AAA2;
+        background-color: #FFF2;
         mask-size: 100% 100%;
         mask-repeat: no-repeat;
         mask-image: url("@/assets/weather-icons/svg/wi-raindrop.svg");

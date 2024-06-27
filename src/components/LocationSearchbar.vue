@@ -26,9 +26,13 @@ const getWeather = () => {
 
     clearTimeout(timer);
     locationsSearched.value = false;
-    weatherStore.setLocation(location.value);
-    weatherStore.getWeather();
-    router.push('/weather');
+    weatherStore.getWeatherByName(location.value);
+    router.push({
+        name: "weather",
+        params: {
+            location: location.value
+        }
+    });
 };
 
 const getWeatherByCoords = (location: any) => {
@@ -36,9 +40,8 @@ const getWeatherByCoords = (location: any) => {
     weatherStore.getWeatherFromGeocoding(location);
     router.push({
         name: "weather",
-        query: {
-            latitude: location.latitude,
-            longitude: location.longitude
+        params: {
+            location: location.name
         }
     });
 };
